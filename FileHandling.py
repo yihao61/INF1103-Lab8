@@ -4,8 +4,11 @@ from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from supplier import Supplier
 from order import Order, OrderList
+from product import Product
+from supplier_list import SupplierList
+from inventory import Inventory
 
-def save_inventory(inv_list, filepath):
+def save_inventory(inv_list: list[Product], filepath: str) -> None:
     print("\nSaving inventory.....")
 
     with open(filepath, "w", encoding="utf-8") as file:
@@ -16,7 +19,7 @@ def save_inventory(inv_list, filepath):
     print("Inventory Saved.....\n")
     return
 
-def save_suppliers(supplier_list, filepath):
+def save_suppliers(supplier_list: list[Supplier], filepath: str) -> None:
     print("\nSaving suppliers.....")
 
     with open(filepath, "w", encoding="utf-8") as file:
@@ -24,8 +27,8 @@ def save_suppliers(supplier_list, filepath):
 
     print("Suppliers Saved.....\n")
 
-def load_suppliers(filepath):
-    suppliers = []
+def load_suppliers(filepath: str) -> list[Supplier]:
+    suppliers: list[Supplier] = []
 
     # Check if the file exists, if not create a blank file
     if not os.path.exists(filepath):
@@ -52,10 +55,10 @@ def load_suppliers(filepath):
     print("Suppliers loaded successfully!" if suppliers else "No suppliers saved.")
     return suppliers
 
-def load_inventory(filepath, supplier_list=None):
+def load_inventory(filepath: str, supplier_list: SupplierList | None = None) -> list[Product]:
     """Load products. If a SupplierList is given, products share its Supplier
     objects (matched by id); unknown suppliers are added to it."""
-    inv_list = []
+    inv_list: list[Product] = []
 
     # Check if the file exists, if not create a blank file
     if not os.path.exists(filepath):
@@ -99,7 +102,7 @@ def load_inventory(filepath, supplier_list=None):
     
     return inv_list
 
-def save_orders(order_list, filepath):
+def save_orders(order_list: list[Order], filepath: str) -> None:
     """Save orders. Each line stores only the product id and quantity, because
     the Order does not own the Product."""
     print("\nSaving orders.....")
@@ -120,7 +123,7 @@ def save_orders(order_list, filepath):
 
     print("Orders Saved.....\n")
 
-def load_orders(filepath, inventory):
+def load_orders(filepath: str, inventory: Inventory) -> OrderList:
     """Load orders, linking each line to the matching Product in the inventory."""
     orders = OrderList()
 

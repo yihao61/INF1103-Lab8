@@ -17,13 +17,13 @@ class Inventory:
                 return product
         return None
 
-    def check_name_exists(self, product_name):
+    def check_name_exists(self, product_name: str) -> bool:
         for product in self.__inventory:
             if product.get_name() == product_name:
                 return True
         return False
     
-    def add_product(self, prod: Product):
+    def add_product(self, prod: Product) -> None:
         self.__inventory.append(prod)
         print("\nProduct added successfully!")
         return
@@ -39,7 +39,7 @@ class Inventory:
         print(f"Product {product_id} removed.")
         return True
 
-    def update_stock(self):
+    def update_stock(self) -> None:
         print("\nUpdate Stock")
         idinp = input("Enter Product ID: ")
         for prod in self.__inventory:
@@ -58,7 +58,7 @@ class Inventory:
 
         print("Product not found. Please check the ID and try again.")
 
-    def search_product(self):
+    def search_product(self) -> None:
         found = False
         print("\nSearch Product")
         idinp = input("Enter Product ID: ")
@@ -77,7 +77,7 @@ class Inventory:
         
         return
 
-    def display_all(self):
+    def display_all(self) -> None:
         lines = "-" * 100
         print("\nCurrent Inventory\n" + lines)
         for prod in self.__inventory:

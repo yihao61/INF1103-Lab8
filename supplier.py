@@ -1,17 +1,17 @@
 class Supplier:
-    def __init__(self, supplier_id, name, contact_email):
-        self.__supplier_id = supplier_id
-        self.__name = name
-        self.__contact_email = contact_email
+    def __init__(self, supplier_id: str, name: str, contact_email: str):
+        self.__supplier_id: str = supplier_id
+        self.__name: str = name
+        self.__contact_email: str = contact_email
 
-    def get_supplier_id(self):
+    def get_supplier_id(self) -> str:
         return self.__supplier_id
 
-    def get_name(self):
+    def get_name(self) -> str:
         return self.__name
 
-    def get_contact_email(self):
+    def get_contact_email(self) -> str:
         return self.__contact_email
 
-    def display_information(self):
+    def display_information(self) -> str:
         return f"Supplier ID: {self.__supplier_id} | Name: {self.__name} | Email: {self.__contact_email}"

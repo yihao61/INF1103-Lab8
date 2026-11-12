@@ -17,7 +17,7 @@ def is_valid_email_regex(value: str) -> bool:
         return False
     return bool(re.fullmatch(EMAIL_PATTERN, value.strip()))
 
-def get_valid_input():
+def get_valid_input() -> int:
     while True:
         try:
             user = input("\nEnter option: ")
@@ -33,7 +33,7 @@ def get_valid_input():
         except ValueError:
             print("Invalid Option entered, please try again.")       
 
-def add_product(inventory, supplier_list):
+def add_product(inventory: Inventory, supplier_list: SupplierList) -> None:
     Adding = True
     progress = 0
     print("Add New Product")
@@ -128,7 +128,7 @@ def add_product(inventory, supplier_list):
     # Add the new product to the inventory
     inventory.add_product(new_product)
 
-def create_order(inventory, orders):
+def create_order(inventory: Inventory, orders: OrderList) -> None:
     """Build an Order from products in the inventory and add it to orders."""
     print("Create New Order")
     while True:
@@ -174,7 +174,7 @@ def create_order(inventory, orders):
     orders.add_order(order)
     order.display_all()
 
-def add_supplier(supplier_list):
+def add_supplier(supplier_list: SupplierList) -> Supplier:
     """Prompt for supplier details, add to supplier_list and return the Supplier."""
     print("Add New Supplier")
     while True:
@@ -197,7 +197,7 @@ def add_supplier(supplier_list):
     return new_supplier
 
 
-def main():
+def main() -> None:
     print("============================================================\n"
             "INVENTORY MANAGEMENT SYSTEM\n"
             "============================================================\n")
