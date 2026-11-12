@@ -47,7 +47,7 @@ def add_product(inventory, supplier_list):
     
         elif progress == 1:       # Ask user for product ID
             idinp = input(f"Product ID({prodtype}): {prodtype[0].upper()}").strip()
-            if inventory.check_id_exists(prodtype[0].upper() + idinp):                
+            if inventory.find_product(prodtype[0].upper() + idinp) is not None:
                 print("ID already exits. Please pick a new one.")
                 continue
             
@@ -131,7 +131,7 @@ def add_supplier(supplier_list):
     print("Add New Supplier")
     while True:
         supidinp = "S" + input("Supplier's id: S").strip()
-        if supplier_list.check_id_exists(supidinp):
+        if supplier_list.find_by_id(supidinp) is not None:
             print("Supplier ID already exists. Please pick a new one.")
             continue
         break

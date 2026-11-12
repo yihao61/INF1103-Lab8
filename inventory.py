@@ -1,15 +1,21 @@
-class Inventory:
-    def __init__(self, inventory=[]):
-        self.__inventory = inventory
+from product import Product
 
-    def get_inventory(self):
+class Inventory:
+    # Aggregation: the Inventory groups Product objects, but the products are
+    # created elsewhere and can exist without the Inventory.
+    # able to hold Physical or Digital products.
+    def __init__(self, inventory: list[Product] | None = None):
+        self.__inventory: list[Product] = inventory if inventory is not None else []
+
+    def get_inventory(self) -> list[Product]:
         return self.__inventory
 
-    def check_id_exists(self, product_id):
+    def find_product(self, product_id: str) -> Product | None:
+        """Return the matching Product, or None if it cannot be found."""
         for product in self.__inventory:
             if product.get_product_id() == product_id:
-                return True
-        return False
+                return product
+        return None
 
     def check_name_exists(self, product_name):
         for product in self.__inventory:
@@ -17,10 +23,21 @@ class Inventory:
                 return True
         return False
     
-    def add_product(self, prod):
+    def add_product(self, prod: Product):
         self.__inventory.append(prod)
         print("\nProduct added successfully!")
         return
+
+    def remove_product(self, product_id: str) -> bool:
+        """Remove the matching Product reference from the inventory.
+        The Product object itself is not destroyed. Returns True if removed."""
+        product = self.find_product(product_id)
+        if product is None:
+            print(f"Product ID: {product_id} not found.")
+            return False
+        self.__inventory.remove(product)
+        print(f"Product {product_id} removed.")
+        return True
 
     def update_stock(self):
         print("\nUpdate Stock")

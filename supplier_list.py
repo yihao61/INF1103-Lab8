@@ -11,9 +11,6 @@ class SupplierList:
                 return supplier
         return None
 
-    def check_id_exists(self, supplier_id):
-        return self.find_by_id(supplier_id) is not None
-
     def add_supplier(self, supplier):
         self.__suppliers.append(supplier)
         print("\nSupplier added successfully!")
