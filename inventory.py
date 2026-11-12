@@ -64,11 +64,12 @@ class Inventory:
         idinp = input("Enter Product ID: ")
 
         for prod in self.__inventory:
+            lines = "-" * 100
             if prod.get_product_id() == idinp:
                 print("\nProduct Found!")
-                print("------------------------------------------------------------------------------------------------------------------------------------------------")
+                print(lines)
                 print(prod.display_information())
-                print("------------------------------------------------------------------------------------------------------------------------------------------------")
+                print(lines)
                 found = True
 
         if not found:
@@ -77,11 +78,11 @@ class Inventory:
         return
 
     def display_all(self):
-        print("\nCurrent Inventory\n"
-            "------------------------------------------------------------------------------------------------------------------------------------------------")
+        lines = "-" * 100
+        print("\nCurrent Inventory\n" + lines)
         for prod in self.__inventory:
             print(prod.display_information())
-        print("------------------------------------------------------------------------------------------------------------------------------------------------")
+        print(lines)
         return
 
 

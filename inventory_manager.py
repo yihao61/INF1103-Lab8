@@ -3,11 +3,13 @@ from digital_product import DigitalProduct
 from supplier import Supplier
 from inventory import Inventory
 from supplier_list import SupplierList
+from order import Order, OrderList
 import FileHandling
 import re
 
 FILEPATH = "inventory.json"
 SUPPLIER_FILEPATH = "suppliers.json"
+ORDER_FILEPATH = "orders.json"
 EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
 def is_valid_email_regex(value: str) -> bool:
@@ -24,10 +26,10 @@ def get_valid_input():
                 return 0
             
             value = int(user)
-            if 0 <= value <= 7:
+            if 0 <= value <= 9:
                 return value
 
-            print("Number Out of range! Please choose options 1-7 or 0 to exit.")
+            print("Number Out of range! Please choose options 1-9 or 0 to exit.")
         except ValueError:
             print("Invalid Option entered, please try again.")       
 
@@ -126,6 +128,52 @@ def add_product(inventory, supplier_list):
     # Add the new product to the inventory
     inventory.add_product(new_product)
 
+def create_order(inventory, orders):
+    """Build an Order from products in the inventory and add it to orders."""
+    print("Create New Order")
+    while True:
+        order_id = "O" + input("Order ID: O").strip()
+        if orders.find_order(order_id) is not None:
+            print("Order ID already exists. Please pick a new one.")
+            continue
+        break
+
+    order = Order(order_id)
+    print("Add products to the order. Leave Product ID blank to finish.")
+    while True:
+        product_id = input("Product ID: ").strip()
+        if product_id == "":
+            break
+
+        product = inventory.find_product(product_id)
+        if product is None:
+            print("Product not found. Please try again.")
+            continue
+
+        try:
+            quantity = int(input(f"Quantity (in stock: {product.get_stock()}): "))
+        except ValueError:
+            print("Not an integer. Try Again!")
+            continue
+
+        if quantity <= 0:
+            print("Quantity must be at least 1.")
+            continue
+        if quantity > product.get_stock():
+            print("Not enough stock available.")
+            continue
+
+        order.add_order_line(product, quantity)
+        product.update_stock(product.get_stock() - quantity)
+        print(f"Added {quantity} x {product.get_name()} to the order.")
+
+    if not order.get_order_lines():
+        print("Order has no items. Order cancelled.")
+        return
+
+    orders.add_order(order)
+    order.display_all()
+
 def add_supplier(supplier_list):
     """Prompt for supplier details, add to supplier_list and return the Supplier."""
     print("Add New Supplier")
@@ -156,6 +204,7 @@ def main():
 
     supplier_list = SupplierList(FileHandling.load_suppliers(SUPPLIER_FILEPATH))
     inventory = Inventory(FileHandling.load_inventory(FILEPATH, supplier_list))
+    orders = FileHandling.load_orders(ORDER_FILEPATH, inventory)
     exit_program = False
 
     print("\n----------- MENU -----------"
@@ -165,7 +214,9 @@ def main():
             "\n4. Add Supplier"
             "\n5. Update Stock"
             "\n6. Search Product"
-            "\n7. Save Inventory"
+            "\n7. Create Order"
+            "\n8. Display All Orders"
+            "\n9. Save Inventory"
             "\n0. Exit"
             "\n----------------------------")
 
@@ -185,13 +236,19 @@ def main():
             case 6:
                 inventory.search_product()
             case 7:
+                create_order(inventory, orders)
+            case 8:
+                orders.display_all()
+            case 9:
                 FileHandling.save_inventory(inventory.get_inventory(), FILEPATH)
                 FileHandling.save_suppliers(supplier_list.get_suppliers(), SUPPLIER_FILEPATH)
+                FileHandling.save_orders(orders.get_orders(), ORDER_FILEPATH)
             case 0:
                 exit_program = True
 
     FileHandling.save_inventory(inventory.get_inventory(), FILEPATH)
     FileHandling.save_suppliers(supplier_list.get_suppliers(), SUPPLIER_FILEPATH)
+    FileHandling.save_orders(orders.get_orders(), ORDER_FILEPATH)
     print("Thank you for using Inventory Management System.")
     print("Program terminated.")
 

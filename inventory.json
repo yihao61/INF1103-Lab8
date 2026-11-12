@@ -1,14 +1,74 @@
 [
     {
-        "_Product__id": "P001",
-        "_Product__name": "Chair",
-        "_Product__price": 999.0,
-        "_Product__stock": 10,
+        "_Product__id": "D001",
+        "_Product__name": "PacMan",
+        "_Product__price": 9.99,
+        "_Product__stock": 20,
         "_Product__supplier": {
-            "_Supplier__supplier_id": "S001",
-            "_Supplier__name": "Secret_Labs",
-            "_Supplier__contact_email": "Secret_Labs@email.com"
+            "_Supplier__supplier_id": "S002",
+            "_Supplier__name": "Bandai_Namco",
+            "_Supplier__contact_email": "Bandai_Namco@email.com"
         },
-        "_PhysicalProduct__weight": 10.0
+        "_DigitalProduct__download_size": 891.0
+    },
+    {
+        "_Product__id": "P001",
+        "_Product__name": "Laptop",
+        "_Product__price": 1200.0,
+        "_Product__stock": 20,
+        "_Product__supplier": {
+            "_Supplier__supplier_id": "S004",
+            "_Supplier__name": "Dell",
+            "_Supplier__contact_email": "Dell@email.com"
+        },
+        "_PhysicalProduct__weight": 2.0
+    },
+    {
+        "_Product__id": "P002",
+        "_Product__name": "Mouse",
+        "_Product__price": 25.5,
+        "_Product__stock": 30,
+        "_Product__supplier": {
+            "_Supplier__supplier_id": "S005",
+            "_Supplier__name": "Logitech",
+            "_Supplier__contact_email": "Logitech@email.com"
+        },
+        "_PhysicalProduct__weight": 0.6
+    },
+    {
+        "_Product__id": "P003",
+        "_Product__name": "Keyboard",
+        "_Product__price": 45.0,
+        "_Product__stock": 4,
+        "_Product__supplier": {
+            "_Supplier__supplier_id": "S005",
+            "_Supplier__name": "Logitech",
+            "_Supplier__contact_email": "Logitech@email.com"
+        },
+        "_PhysicalProduct__weight": 1.2
+    },
+    {
+        "_Product__id": "P004",
+        "_Product__name": "Monitor",
+        "_Product__price": 299.99,
+        "_Product__stock": 20,
+        "_Product__supplier": {
+            "_Supplier__supplier_id": "S006",
+            "_Supplier__name": "Samsung",
+            "_Supplier__contact_email": "Samsung@email.com"
+        },
+        "_PhysicalProduct__weight": 2.3
+    },
+    {
+        "_Product__id": "D002",
+        "_Product__name": "Monster Hunter",
+        "_Product__price": 59.99,
+        "_Product__stock": 20,
+        "_Product__supplier": {
+            "_Supplier__supplier_id": "S003",
+            "_Supplier__name": "Capcom",
+            "_Supplier__contact_email": "Capcom@email.com"
+        },
+        "_DigitalProduct__download_size": 6927.0
     }
 ]

@@ -3,5 +3,30 @@
         "_Supplier__supplier_id": "S001",
         "_Supplier__name": "Secret_Labs",
         "_Supplier__contact_email": "Secret_Labs@email.com"
+    },
+    {
+        "_Supplier__supplier_id": "S002",
+        "_Supplier__name": "Bandai_Namco",
+        "_Supplier__contact_email": "Bandai_Namco@email.com"
+    },
+    {
+        "_Supplier__supplier_id": "S003",
+        "_Supplier__name": "Capcom",
+        "_Supplier__contact_email": "Capcom@email.com"
+    },
+    {
+        "_Supplier__supplier_id": "S004",
+        "_Supplier__name": "Dell",
+        "_Supplier__contact_email": "Dell@email.com"
+    },
+    {
+        "_Supplier__supplier_id": "S005",
+        "_Supplier__name": "Logitech",
+        "_Supplier__contact_email": "Logitech@email.com"
+    },
+    {
+        "_Supplier__supplier_id": "S006",
+        "_Supplier__name": "Samsung",
+        "_Supplier__contact_email": "Samsung@email.com"
     }
 ]

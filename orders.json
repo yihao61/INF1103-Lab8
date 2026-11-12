@@ -1,0 +1,24 @@
+[
+    {
+        "order_id": "O1",
+        "order_lines": [
+            {"product_id": "P001", "quantity": 1},
+            {"product_id": "P002", "quantity": 2}
+        ]
+    },
+    {
+        "order_id": "O2",
+        "order_lines": [
+            {"product_id": "D001", "quantity": 1},
+            {"product_id": "D002", "quantity": 1}
+        ]
+    },
+    {
+        "order_id": "O3",
+        "order_lines": [
+            {"product_id": "P003", "quantity": 2},
+            {"product_id": "P004", "quantity": 1},
+            {"product_id": "P002", "quantity": 1}
+        ]
+    }
+]

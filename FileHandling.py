@@ -3,6 +3,7 @@ import os
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from supplier import Supplier
+from order import Order, OrderList
 
 def save_inventory(inv_list, filepath):
     print("\nSaving inventory.....")
@@ -97,6 +98,58 @@ def load_inventory(filepath, supplier_list=None):
         print("Inventory loaded successfully!")
     
     return inv_list
+
+def save_orders(order_list, filepath):
+    """Save orders. Each line stores only the product id and quantity, because
+    the Order does not own the Product."""
+    print("\nSaving orders.....")
+
+    data = [
+        {
+            "order_id": order.get_order_id(),
+            "order_lines": [
+                {"product_id": line.get_product().get_product_id(),
+                 "quantity": line.get_quantity()}
+                for line in order.get_order_lines()
+            ],
+        }
+        for order in order_list
+    ]
+    with open(filepath, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4)
+
+    print("Orders Saved.....\n")
+
+def load_orders(filepath, inventory):
+    """Load orders, linking each line to the matching Product in the inventory."""
+    orders = OrderList()
+
+    if not os.path.exists(filepath):
+        print(f"{filepath} does not exists, creating a blank file...")
+        with open(filepath, "w", encoding="utf-8") as file:
+            pass
+        return orders
+
+    with open(filepath, "r", encoding="utf-8") as file:
+        print(f"{filepath} found.")
+        try:
+            full_list = json.load(file)
+        except json.JSONDecodeError:
+            print(f"{filepath} is empty or corrupted. Starting with no orders.")
+            return orders
+
+    for item in full_list:
+        order = Order(item["order_id"])
+        for line in item["order_lines"]:
+            product = inventory.find_product(line["product_id"])
+            if product is None:
+                print(f"Skipping unknown product {line['product_id']} in order {item['order_id']}.")
+                continue
+            order.add_order_line(product, line["quantity"])
+        orders.get_orders().append(order)
+
+    print("Orders loaded successfully!" if orders.get_orders() else "No orders saved.")
+    return orders
 
 if __name__ == "__main__":
     FILEPATH = "inventory.json"
