@@ -20,6 +20,15 @@ class Order:
         order_line = OrderLine(product, quantity)
         self.__order_lines.append(order_line)
 
+    def remove_order_line(self, product_id: str) -> bool:
+        """Remove the line for the given product. Only the Order manages its lines.
+        The Product itself is not affected. Returns True if a line was removed."""
+        for line in self.__order_lines:
+            if line.get_product().get_product_id() == product_id:
+                self.__order_lines.remove(line)
+                return True
+        return False
+
     def calculate_total(self) -> float:
         # Ask each OrderLine for its own subtotal.
         return sum((line.calculate_subtotal() for line in self.__order_lines), 0.0)
