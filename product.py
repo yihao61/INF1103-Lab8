@@ -1,12 +1,14 @@
 #parent class
 from abc import ABC, abstractmethod
+from supplier import Supplier
 
 class Product(ABC):
-    def __init__(self, _Product__id, _Product__name, _Product__price, _Product__stock):
+    def __init__(self, _Product__id, _Product__name, _Product__price, _Product__stock, _Product__supplier):
         self.__id = _Product__id
         self.__name = _Product__name
         self.__price = _Product__price
         self.__stock = _Product__stock
+        self.__supplier: Supplier = _Product__supplier
 
     def update_stock(self, quantity):
         if quantity >= 0: 
@@ -25,7 +27,7 @@ class Product(ABC):
         return self.__stock
 
     def display_information(self):
-        return f"ID: {self.__id:<2} | Name: {self.__name:<20} | Price: ${self.__price:<8} | Stock: {self.__stock:<2} | {self.get_fulfilment_info()}"
+        return f"ID: {self.__id:<2} | Name: {self.__name:<15} | Price: ${self.__price:<8} | Stock: {self.__stock:<2} | {self.__supplier.get_name():<15} | {self.get_fulfilment_info()}"
 
     @abstractmethod
     def get_fulfilment_info(self):

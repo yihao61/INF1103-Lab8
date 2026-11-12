@@ -7,7 +7,9 @@ def save_inventory(inv_list, filepath):
     print("\nSaving inventory.....")
 
     with open(filepath, "w", encoding="utf-8") as file:
-        json.dump([product.__dict__ for product in inv_list], file, indent=4)
+        # default=... serializes nested objects (e.g. Supplier) via their __dict__
+        json.dump([product.__dict__ for product in inv_list], file, indent=4,
+                  default=lambda obj: obj.__dict__)
 
     print("Inventory Saved.....\n")
     return

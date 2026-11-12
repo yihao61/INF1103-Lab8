@@ -1,8 +1,17 @@
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
+from supplier import Supplier
 from inventory import Inventory
 import FileHandling
+import re
+
 FILEPATH = "inventory.json"
+EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+
+def is_valid_email_regex(value: str) -> bool:
+    if not isinstance(value, str):
+        return False
+    return bool(re.fullmatch(EMAIL_PATTERN, value.strip()))
 
 def get_valid_input():
     while True:
@@ -23,6 +32,8 @@ def get_valid_input():
 def add_product(inventory):
     Adding = True
     progress = 0
+    getsupinfo = True
+    supprog = 0
     print("Add New Product")
     while Adding:
         if progress == 0:     # Ask user for product type  
@@ -74,8 +85,25 @@ def add_product(inventory):
     
             product_stock = valids
             progress+=1
-            
-        elif progress == 5:     # Ask user for download size or weight
+
+        elif progress == 5:
+            while getsupinfo:
+                if supprog == 0:
+                    supidinp = input("Supplier's id: ")
+                    supprog+=1
+                elif supprog == 1:
+                    supnameinp = input("Supplier's Name: ")
+                    supprog+=1
+                elif supprog ==2:
+                    supemailinp = input("Supplier's Email: ")
+                    if is_valid_email_regex(supemailinp):
+                        supprog += 1
+                        getsupinfo = False
+                    else:
+                        print("Invalid Email Entered. Please try again.")
+            product_supplier = Supplier(supidinp, supnameinp, supemailinp)
+            progress+=1
+        elif progress == 6:     # Ask user for download size or weight
             if prodtype == "Digital":
                 downloadinp = input("Download Size (MB): ")
                 try:
@@ -96,9 +124,9 @@ def add_product(inventory):
         else:
             #create new digital product object
             if prodtype == "Digital":    
-                new_product = DigitalProduct(product_id, product_name, product_price, product_stock, product_download_size)
+                new_product = DigitalProduct(product_id, product_name, product_price, product_stock, product_supplier , product_download_size)
             else:
-                new_product = PhysicalProduct(product_id, product_name, product_price, product_stock, product_weight)
+                new_product = PhysicalProduct(product_id, product_name, product_price, product_stock, product_supplier, product_weight)
             Adding = False
 
     # Add the new product to the inventory

@@ -1,0 +1,14 @@
+[
+    {
+        "_Product__id": "P001",
+        "_Product__name": "Chair",
+        "_Product__price": 999.0,
+        "_Product__stock": 10,
+        "_Product__supplier": {
+            "_Supplier__supplier_id": "S001",
+            "_Supplier__name": "Secret_Labs",
+            "_Supplier__contact_email": "Secret_Labs@email.com"
+        },
+        "_PhysicalProduct__weight": 10.0
+    }
+]
